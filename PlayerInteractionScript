@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerInteractionScript : MonoBehaviour
+{
+    public GameObject InteractableObject;
+
+    void Update()
+    {
+        InteractWithInteractable();
+    }
+    
+    public void InteractWithInteractable()
+    {
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            if (InteractableObject != null)
+            {
+                Debug.Log("Masz obiekt " + InteractableObject);
+            }
+            else
+            {
+                Debug.Log("Nie masz żadnego obiektu");
+            }
+        }
+    }
+
+    public void SubscribeInteractable(GameObject item)
+    {
+        InteractableObject = item;
+    }
+
+    public void UnsubscribeInteractable()
+    {
+        InteractableObject = null;
+    }
+
+
+}
