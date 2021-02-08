@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Interactable : MonoBehaviour
+{
+    public PlayerInteractionScript pis;
+
+    public float maxDistanceToPlayer;
+
+    bool CanInteract;
+
+    void OnTriggerEnter2D(Collider2D player)
+    {
+        if (player.gameObject.tag == "Player")
+        {
+            CanInteract = Vector3.Distance(this.transform.position, player.transform.position) <= maxDistanceToPlayer;
+
+            if (CanInteract)
+            {
+                pis = player.gameObject.GetComponent<PlayerInteractionScript>();
+                pis.SubscribeInteractable(this.gameObject);
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D player)
+    {
+        if (player.gameObject.tag == "Player")
+        {
+            pis = player.gameObject.GetComponent<PlayerInteractionScript>();
+            pis.UnsubscribeInteractable();
+        }
+    }
+}
